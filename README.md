@@ -25,8 +25,11 @@ The system follows a **tightly-coupled optimization-based VINS pipeline**, inspi
 
 ## 🎥 Demo
 
+
+
+
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/your-demo-gif-here" width="700"/>
+  <img width="920" height="516" alt="output" src="https://github.com/user-attachments/assets/3525394b-3373-4f68-a26e-6d88db7191d1" />
 </p>
 
 ---
