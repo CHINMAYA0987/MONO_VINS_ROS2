@@ -2,7 +2,7 @@
 # 🚀 Mono_VINS_ROS2
 
 
-> 🎯 **Monocular Visual-Inertial Navigation System (VINS) using Ceres Solver on ROS2 on EuRoC dataset (C++ version**
+> 🎯 **Monocular Visual-Inertial Navigation System (VINS) using Ceres Solver on ROS2 on EuRoC dataset (C++ version)**
 
 ![ROS2](https://img.shields.io/badge/ROS2-Humble-blue?style=for-the-badge&logo=ros)
 ![Status](https://img.shields.io/badge/Status-Experimental-success?style=for-the-badge)
