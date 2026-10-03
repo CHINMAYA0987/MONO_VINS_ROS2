@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>mono_vio</name>
+  <version>0.1.0</version>
+  <description>
+    Monocular Visual-Inertial Odometry using sliding window bundle adjustment.
+    Based on VINS-Mono (Qin et al., TRO 2018). Sensors: monocular camera + IMU.
+  </description>
+  <maintainer email="you@example.com">Your Name</maintainer>
+  <license>MIT</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <depend>rclcpp</depend>
+  <depend>sensor_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>nav_msgs</depend>
+  <depend>cv_bridge</depend>
+  <depend>tf2_ros</depend>
+  <depend>tf2_eigen</depend>
+
+  <build_depend>libopencv-dev</build_depend>
+  <build_depend>libeigen3-dev</build_depend>
+  <build_depend>libceres-dev</build_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

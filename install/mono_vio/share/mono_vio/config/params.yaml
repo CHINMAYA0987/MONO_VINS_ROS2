@@ -1,0 +1,87 @@
+mono_vio_node:
+  ros__parameters:
+
+    # ── Camera (EuRoC MH_01 cam0) ─────────────────────────────────────────────
+    camera:
+      fx: 458.654
+      fy: 457.296
+      cx: 367.215
+      cy: 248.375
+      width:  752
+      height: 480
+      distortion_coeffs: [-0.28340811, 0.07395907, 0.00019359, 1.76187114e-05]
+
+    # ── IMU (EuRoC) ───────────────────────────────────────────────────────────
+    imu:
+      acc_noise_density:  0.0028
+      gyro_noise_density: 0.00016
+      acc_random_walk:    0.00086
+      gyro_random_walk:   2.2e-5
+    imu_rate: 200.0
+
+    # ── Extrinsics: T_imu_cam (4×4, row-major) ────────────────────────────────
+    extrinsics:
+      T_imu_cam: [
+         0.0148655429818, -0.999880929698,  0.00414029679422, -0.0216401454975,
+         0.999557249008,   0.0149672133247,  0.025715529948,  -0.064676986768,
+        -0.0257744366974,  0.00375618835797, 0.999660727178,   0.00981073058949,
+         0.0,              0.0,              0.0,               1.0
+      ]
+
+    # ── Sliding window ────────────────────────────────────────────────────────
+    sliding_window:
+      window_size:     15
+      min_parallax:    10.0
+      max_dt_keyframe: 0.5
+
+    # ── Feature tracker ───────────────────────────────────────────────────────
+    feature_tracker:
+      max_features:            150
+      fast_threshold:          12
+      min_dist:                30
+      klt_win_size:            21
+      klt_max_level:           3
+      ransac_reproj_threshold: 1.0
+      backtrack_thr:           1.5    # max round-trip pixel error for KLT verification
+      grid_rows:               4      # rows in detection grid
+      grid_cols:               6      # cols in detection grid
+
+    # ── Initializer ───────────────────────────────────────────────────────────
+    initializer:
+      init_keyframes:    15
+      acc_std_threshold: 0.5
+    max_init_retries: 3
+
+    # ── Optimizer ─────────────────────────────────────────────────────────────
+    optimizer:
+      max_iterations:   8
+      num_threads:      4
+      max_solver_time:  0.05
+      huber_loss_scale: 0.005   # normalised coords: ~2.3 pixels / 460 focal
+      use_imu_factors:  true      # IMU rotation/velocity constraints prevent v→0 collapse
+      imu_weight:       0.02    # ScaledLoss: very small — only prevents v→0, doesn't drive positions
+      fix_first_vel_bias: true   # allow optimizer to find v[0] rather than pinning at 0
+
+    # Velocity safety clamp — set to 5× expected max speed.
+    max_vel_m_s: 3.0   # EuRoC max ~1.5 m/s
+
+    # ── Loop closure ──────────────────────────────────────────────────────────
+    use_loop_closure: true
+    loop_detector:
+      start_after_kf:    30
+      min_kf_gap:        10
+      same_ref_cooldown: 15
+      apply_min_inliers: 85
+      max_db_size:       500
+      min_temporal_gap:  15
+      detect_min_inliers: 50
+      ratio_thresh:      0.75
+      orb_features:      500
+
+    # ── Topics ────────────────────────────────────────────────────────────────
+    topics:
+      image: /cam0/image_raw
+      imu:   /imu0
+      odom:  /mono_vio/odometry
+      path:  /mono_vio/path
+      debug: /mono_vio/debug_image
